@@ -1,21 +1,30 @@
 import 'package:flutter/material.dart';
 
 class DoubleInputVertical extends StatefulWidget {
-  DoubleInputVertical(
-      {Key? key, required this.min, required this.max, required this.divisions, required this.value})
-      : super(key: key);
-
   final double min;
   final double max;
   final int divisions;
 
-  double value;
+  late final _ScalarInputVerticalState state;
+
+  DoubleInputVertical({Key? key, required this.min, required this.max, required this.divisions, required double value})
+      : super(key: key) {
+    state = _ScalarInputVerticalState(value: value);
+  }
 
   @override
-  _ScalarInputVerticalState createState() => _ScalarInputVerticalState();
+  _ScalarInputVerticalState createState() => state;
+
+  double get value {
+    return state.value;
+  }
 }
 
 class _ScalarInputVerticalState extends State<DoubleInputVertical> {
+
+  double value;
+
+  _ScalarInputVerticalState({required this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -24,28 +33,28 @@ class _ScalarInputVerticalState extends State<DoubleInputVertical> {
     Widget _slider = RotatedBox(
         quarterTurns: 3,
         child: Slider(
-          value: widget.value,
+          value: value,
           min: widget.min,
           max: widget.max,
           divisions: widget.divisions,
           onChanged: (double newValue) {
             setState(() {
-              widget.value = newValue;
+              value = newValue;
             });
           },
         ));
 
-    Text _text = Text("${widget.value.toStringAsFixed(1)} °C",
-        style: const TextStyle(fontSize: 20, color: Colors.blue));
+    Text _text = Text("${value.toStringAsFixed(1)} °C", style: const TextStyle(fontSize: 20, color: Colors.blue));
 
-    Widget _buttons = Column(
+    Widget _buttons =
+        Column(
       children: <Widget>[
         IconButton(
           icon: const Icon(Icons.arrow_circle_up, color: Colors.blue),
           iconSize: 35.0,
           onPressed: () {
             setState(() {
-              widget.value += increment;
+              value += increment;
             });
           },
         ),
@@ -54,27 +63,20 @@ class _ScalarInputVerticalState extends State<DoubleInputVertical> {
           iconSize: 35.0,
           onPressed: () {
             setState(() {
-              widget.value -= increment;
+              value -= increment;
             });
           },
         ),
       ],
     );
 
-    Container container = Container(
-      child: Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _slider,
-                  _text,
-                ]
-            ),
-        const SizedBox(width: 15.0),
-        _buttons
+    return Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center, children: [
+      Column(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center, children: [
+        _slider,
+        _text,
       ]),
-    );
-
-    return container;
+      const SizedBox(width: 15.0),
+      _buttons
+    ]);
   }
 }

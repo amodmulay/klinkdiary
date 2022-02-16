@@ -1,5 +1,5 @@
 
-import 'Record.dart';
+import 'record.dart';
 
 class BodyTemperatureRecord extends Record {
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:klinikdiary/pages/BodyTempaturePage.dart';
-import 'package:klinikdiary/pages/Homepage.dart';
-import 'package:klinikdiary/pages/Pages.dart';
+import 'package:klinikdiary/pages/body_tempature_detail_page.dart';
+import 'package:klinikdiary/pages/body_temperature_overview_page.dart';
+import 'package:klinikdiary/pages/homepage.dart';
+import 'package:klinikdiary/pages/pages.dart';
 
 void main() {
   runApp(const Klinikdiary());
@@ -14,26 +15,26 @@ class Klinikdiary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      initialRoute: PAGE_LOGIN,
-      routes: {
-        PAGE_LOGIN : (context) => const LandingPage(title: "Klinik Diary"),
-        PAGE_HOME: (context) => const Homepage(),
-        PAGE_BODY_TEMPERATURE: (context) => const BodyTemperaturePage()
-      }
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          // This is the theme of your application.
+          //
+          // Try running your application with "flutter run". You'll see the
+          // application has a blue toolbar. Then, without quitting the app, try
+          // changing the primarySwatch below to Colors.green and then invoke
+          // "hot reload" (press "r" in the console where you ran "flutter run",
+          // or simply save your changes to "hot reload" in a Flutter IDE).
+          // Notice that the counter didn't reset back to zero; the application
+          // is not restarted.
+          primarySwatch: Colors.blue,
+        ),
+        initialRoute: Pages.login,
+        routes: {
+          Pages.login: (context) => const LandingPage(title: "Klinik Diary"),
+          Pages.home: (context) => const Homepage(),
+          Pages.bodyTemperatureOverview: (context) => const BodyTemperatureOverviewPage(),
+          Pages.bodyTemperatureDetails: (context) => const BodyTemperatureDetailPage(),
+        });
   }
 }
 
@@ -60,15 +61,13 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-
     final emailField = TextField(
       obscureText: false,
       style: style,
       decoration: InputDecoration(
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Email",
-          border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
     final passwordField = TextField(
       obscureText: true,
@@ -76,8 +75,7 @@ class _LandingPageState extends State<LandingPage> {
       decoration: InputDecoration(
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Password",
-          border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
     final loginButton = Material(
       elevation: 5.0,
@@ -87,12 +85,10 @@ class _LandingPageState extends State<LandingPage> {
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          Navigator.pushNamed(context, PAGE_HOME);
+          Navigator.pushNamed(context, Pages.home);
         },
         child: Text("Login",
-            textAlign: TextAlign.center,
-            style: style.copyWith(
-                color: Colors.white, fontWeight: FontWeight.bold)),
+            textAlign: TextAlign.center, style: style.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
       ),
     );
 

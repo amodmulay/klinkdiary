@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:klinikdiary/data/BodyTemperatureRecord.dart';
-import 'package:klinikdiary/widgets/ScalarInputVertical.dart';
-import 'Pages.dart';
+import 'package:klinikdiary/data/body_temperature_record.dart';
+import 'package:klinikdiary/widgets/double_input_vertical.dart';
+import 'package:klinikdiary/widgets/styles.dart';
 
-class BodyTemperaturePage extends StatelessWidget {
-  const BodyTemperaturePage({Key? key}) : super(key: key);
+class BodyTemperatureDetailPage extends StatelessWidget {
+  const BodyTemperatureDetailPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +23,8 @@ class BodyTemperaturePage extends StatelessWidget {
         DoubleInputVertical(min: 35.0, max: 42.0, divisions: 70, value: _bodyTemperatureRecord.bodyTemperature);
 
     // save button
-    final ButtonStyle _style = ElevatedButton.styleFrom(textStyle: TextStyle(fontSize: 20));
     final Widget _saveButton = ElevatedButton(
-      style: _style,
+      style: Styles.buttonStyle,
       onPressed: () {
         _bodyTemperatureRecord.bodyTemperature = _bodyTemperatureInput.value;
 
@@ -34,7 +33,7 @@ class BodyTemperaturePage extends StatelessWidget {
               " at ${_bodyTemperatureRecord.dateTime}."),
         ));
 
-        Navigator.pushNamed(context, PAGE_HOME);
+        Navigator.pop(context);
       },
       child: const Text('Save'),
     );
