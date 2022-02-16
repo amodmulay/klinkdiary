@@ -1,54 +1,42 @@
 import 'package:flutter/material.dart';
 
-class ScalarInputVertical<T extends num> extends StatefulWidget {
-  const ScalarInputVertical({Key? key, required this.min, required this.max, required this.divisions, required this.initialValue}) : super(key: key);
+class ScalarInputVertical extends StatefulWidget {
+  ScalarInputVertical(
+      {Key? key, required this.min, required this.max, required this.divisions, required this.value})
+      : super(key: key);
 
-  final T min;
-  final T max;
+  final double min;
+  final double max;
   final int divisions;
 
-  final T initialValue;
+  double value;
 
   @override
-  _ScalarInputVerticalState createState() => _ScalarInputVerticalState(min, max, divisions, initialValue);
+  _ScalarInputVerticalState createState() => _ScalarInputVerticalState();
 }
 
-class _ScalarInputVerticalState<T extends num> extends State<ScalarInputVertical<T>> {
-
-  late final double _min;
-  late final double _max;
-  late final int _divisions;
-
-  late double _value;
-
-  _ScalarInputVerticalState(T min, T max, int divisions, T value) {
-    this._min = min.toDouble();
-    this._max = max.toDouble();
-    this._divisions = divisions;
-
-    this._value = value.toDouble();
-  }
+class _ScalarInputVerticalState extends State<ScalarInputVertical> {
 
   @override
   Widget build(BuildContext context) {
-
-    final double increment = (_max - _min) / _divisions;
+    final double increment = (widget.max - widget.min) / widget.divisions;
 
     Widget _slider = RotatedBox(
         quarterTurns: 3,
         child: Slider(
-          value: _value,
-          min: _min,
-          max: _max,
-          divisions: _divisions,
+          value: widget.value,
+          min: widget.min,
+          max: widget.max,
+          divisions: widget.divisions,
           onChanged: (double newValue) {
             setState(() {
-              _value = newValue;
+              widget.value = newValue;
             });
           },
         ));
 
-    Text _text = Text(_value.toStringAsFixed(1));
+    Text _text = Text("${widget.value.toStringAsFixed(1)} °C",
+        style: const TextStyle(fontSize: 20, color: Colors.blue));
 
     Widget _buttons = Column(
       children: <Widget>[
@@ -56,7 +44,7 @@ class _ScalarInputVerticalState<T extends num> extends State<ScalarInputVertical
           icon: const Icon(Icons.arrow_circle_up, color: Colors.blue),
           onPressed: () {
             setState(() {
-              _value += increment;
+              widget.value += increment;
             });
           },
         ),
@@ -64,7 +52,7 @@ class _ScalarInputVerticalState<T extends num> extends State<ScalarInputVertical
           icon: const Icon(Icons.arrow_circle_down, color: Colors.blue),
           onPressed: () {
             setState(() {
-              _value -= increment;
+              widget.value -= increment;
             });
           },
         ),
@@ -72,22 +60,13 @@ class _ScalarInputVerticalState<T extends num> extends State<ScalarInputVertical
     );
 
     Container container = Container(
-      child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _slider,
-                  _text,
-                ]),
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [_buttons])
-          ]),
+      child: Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center, children: [
+        Column(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center, children: [
+          _slider,
+          _text,
+        ]),
+        _buttons
+      ]),
     );
 
     return container;
