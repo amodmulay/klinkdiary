@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:klinikdiary/pages/BodyTempaturePage.dart';
 import 'package:klinikdiary/pages/Homepage.dart';
+import 'package:klinikdiary/pages/Pages.dart';
 
 void main() {
   runApp(const Klinikdiary());
 }
-
-const String PAGE_LOGIN = '/login';
-const String PAGE_HOME = '/bodyTemperature';
-const String PAGE_BODY_TEMPERATURE = '/';
 
 class Klinikdiary extends StatelessWidget {
   const Klinikdiary({Key? key}) : super(key: key);

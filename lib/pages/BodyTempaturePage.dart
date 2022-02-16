@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:klinikdiary/data/BodyTemperatureRecord.dart';
 import 'package:klinikdiary/widgets/ScalarInputVertical.dart';
-
-import '../main.dart';
+import 'Pages.dart';
 
 class BodyTemperaturePage extends StatelessWidget {
   const BodyTemperaturePage({Key? key}) : super(key: key);
@@ -20,8 +19,8 @@ class BodyTemperaturePage extends StatelessWidget {
     }
 
     // body temperature input
-    final ScalarInputVertical _bodyTemperatureInput =
-        ScalarInputVertical(min: 35.0, max: 42.0, divisions: 70, value: _bodyTemperatureRecord.bodyTemperature);
+    final DoubleInputVertical _bodyTemperatureInput =
+        DoubleInputVertical(min: 35.0, max: 42.0, divisions: 70, value: _bodyTemperatureRecord.bodyTemperature);
 
     // save button
     final ButtonStyle _style = ElevatedButton.styleFrom(textStyle: TextStyle(fontSize: 20));
@@ -31,8 +30,7 @@ class BodyTemperaturePage extends StatelessWidget {
         _bodyTemperatureRecord.bodyTemperature = _bodyTemperatureInput.value;
 
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-              "Saved ${_bodyTemperatureRecord.bodyTemperature.toStringAsFixed(1)} °C"
+          content: Text("Saved ${_bodyTemperatureRecord.bodyTemperature.toStringAsFixed(1)} °C"
               " at ${_bodyTemperatureRecord.dateTime}."),
         ));
 

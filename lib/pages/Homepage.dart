@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../data/BodyTemperatureRecord.dart';
-import '../main.dart';
+import 'Pages.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({Key? key}) : super(key: key);

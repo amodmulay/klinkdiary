@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ScalarInputVertical extends StatefulWidget {
-  ScalarInputVertical(
+class DoubleInputVertical extends StatefulWidget {
+  DoubleInputVertical(
       {Key? key, required this.min, required this.max, required this.divisions, required this.value})
       : super(key: key);
 
@@ -15,7 +15,7 @@ class ScalarInputVertical extends StatefulWidget {
   _ScalarInputVerticalState createState() => _ScalarInputVerticalState();
 }
 
-class _ScalarInputVerticalState extends State<ScalarInputVertical> {
+class _ScalarInputVerticalState extends State<DoubleInputVertical> {
 
   @override
   Widget build(BuildContext context) {
