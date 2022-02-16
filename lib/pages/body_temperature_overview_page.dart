@@ -68,7 +68,7 @@ class BodyTemperatureOverviewPage extends StatelessWidget {
         style: Styles.buttonStyle,
         onPressed: () {
           Navigator.pushNamed(context, Pages.bodyTemperatureDetails,
-              arguments: BodyTemperatureRecord.now(bodyTemperature: 37.5));
+              arguments: BodyTemperatureRecord.nowNormalTemperature());
         },
         child: const Text('Body Temperature'));
 
@@ -85,7 +85,7 @@ class BodyTemperatureOverviewPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const SizedBox(height: 600, width: 800, child: BodyTemperatureChart()),
+                  SizedBox(height: 600, width: 800, child: BodyTemperatureChart(bodyTemperatureHistory: bodyTemperatureHistory)),
                   _bodyTemperatureDetailsButton
                 ],
               ),
