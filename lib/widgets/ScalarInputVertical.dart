@@ -42,6 +42,7 @@ class _ScalarInputVerticalState extends State<DoubleInputVertical> {
       children: <Widget>[
         IconButton(
           icon: const Icon(Icons.arrow_circle_up, color: Colors.blue),
+          iconSize: 35.0,
           onPressed: () {
             setState(() {
               widget.value += increment;
@@ -50,6 +51,7 @@ class _ScalarInputVerticalState extends State<DoubleInputVertical> {
         ),
         IconButton(
           icon: const Icon(Icons.arrow_circle_down, color: Colors.blue),
+          iconSize: 35.0,
           onPressed: () {
             setState(() {
               widget.value -= increment;
@@ -60,11 +62,15 @@ class _ScalarInputVerticalState extends State<DoubleInputVertical> {
     );
 
     Container container = Container(
-      child: Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center, children: [
-        Column(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center, children: [
-          _slider,
-          _text,
-        ]),
+      child: Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _slider,
+                  _text,
+                ]
+            ),
+        const SizedBox(width: 15.0),
         _buttons
       ]),
     );
