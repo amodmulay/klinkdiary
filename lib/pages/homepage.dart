@@ -18,6 +18,14 @@ class Homepage extends StatelessWidget {
       child: const Text('Body Temperature')
     );
 
+    final Widget _bloodPreassurePageButton = ElevatedButton(
+        style: Styles.buttonStyle,
+        onPressed: () {
+
+        },
+        child: const Text('Blood Pressure')
+    );
+
     return Scaffold(
         appBar: AppBar(
           title: const Text("Klink Diary")
@@ -31,7 +39,7 @@ class Homepage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[_bodyTemperaturePageButton],
+                children: <Widget>[_bodyTemperaturePageButton, const SizedBox(height: 10.0), _bloodPreassurePageButton],
               ),
             ),
           ),
