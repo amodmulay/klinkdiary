@@ -1,33 +1,42 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:klinikdiary/data/body_temperature_record.dart';
 
-DateFormat _dayMonthFormat = DateFormat("dd.MM.");
+int displayDaysInPast = 14;
 
 class BodyTemperatureChart extends StatelessWidget {
   final List<BodyTemperatureRecord> bodyTemperatureHistory;
-  late final List<BodyTemperatureRecord> bodyTemperatureHistoryToDisplay;
+  late final List<FlSpot> spots;
 
   BodyTemperatureChart({Key? key, required this.bodyTemperatureHistory}) : super(key: key) {
-    bodyTemperatureHistoryToDisplay = bodyTemperatureHistory.where((bodyTemp) => bodyTemp.dateTime.isAfter(DateTime.now().subtract(Duration(days: 14)))).toList();
+    List<BodyTemperatureRecord> bodyTemperatureHistoryToDisplay = bodyTemperatureHistory
+        .where((bodyTemp) => bodyTemp.dateTime.isAfter(DateTime.now().subtract(Duration(days: displayDaysInPast))))
+        .toList();
+
+    spots = List<FlSpot>.generate(bodyTemperatureHistoryToDisplay.length,
+            (index) => _createFlSpot(bodyTemperatureHistoryToDisplay.elementAt(index)),
+        growable: true);
+  }
+
+  FlSpot _createFlSpot(BodyTemperatureRecord bodyTemperatureRecord) {
+    return FlSpot(bodyTemperatureRecord.dateTime.millisecondsSinceEpoch.toDouble(), bodyTemperatureRecord.bodyTemperature);
   }
 
   @override
   Widget build(BuildContext context) {
     return LineChart(
-      sampleData,
+      lineChartData,
     );
   }
 
-  LineChartData get sampleData => LineChartData(
+  LineChartData get lineChartData => LineChartData(
         lineTouchData: lineTouchData,
         gridData: gridData,
         titlesData: titlesData,
         borderData: borderData,
         lineBarsData: lineBarsData,
-        minX: 0,
-        maxX: 14,
+        minX: DateTime.now().subtract(Duration(days: displayDaysInPast)).millisecondsSinceEpoch.toDouble(),
+        maxX: DateTime.now().millisecondsSinceEpoch.toDouble(),
         minY: 35,
         maxY: 42,
       );
@@ -53,7 +62,7 @@ class BodyTemperatureChart extends StatelessWidget {
       );
 
   FlTitlesData get titlesData => FlTitlesData(
-        bottomTitles: bottomTitles,
+        //bottomTitles: bottomTitles, TODO causes massive CPU load when activated
         rightTitles: SideTitles(showTitles: false),
         topTitles: SideTitles(showTitles: false),
         leftTitles: leftTitles(
@@ -73,7 +82,6 @@ class BodyTemperatureChart extends StatelessWidget {
         reservedSize: 40,
         getTextStyles: (context, value) => const TextStyle(
           color: Colors.blue,
-          fontWeight: FontWeight.bold,
           fontSize: 14,
         ),
       );
@@ -85,11 +93,10 @@ class BodyTemperatureChart extends StatelessWidget {
         interval: 1,
         getTextStyles: (context, value) => const TextStyle(
           color: Colors.blue,
-          fontWeight: FontWeight.bold,
           fontSize: 16,
         ),
         getTitles: (value) {
-          return _dayMonthFormat.format(DateTime.now().add(Duration(days: -14 + value.toInt())));
+          return "x";//formats.dateFormatDaMo.format(DateTime.fromMicrosecondsSinceEpoch(value.toInt()));
         },
       );
 
@@ -104,12 +111,6 @@ class BodyTemperatureChart extends StatelessWidget {
       );
 
   LineChartBarData lineChartBarData() {
-    List<FlSpot> spots = List<FlSpot>.generate(
-        bodyTemperatureHistoryToDisplay.length,
-            (index) => FlSpot(index.toDouble(), bodyTemperatureHistoryToDisplay.elementAt(index).bodyTemperature),
-        growable: true)
-    ;
-
     return LineChartBarData(
       colors: [Colors.blue],
       barWidth: 4,
@@ -120,4 +121,7 @@ class BodyTemperatureChart extends StatelessWidget {
     );
   }
 
+  void add(BodyTemperatureRecord bodyTemperatureRecord) {
+    spots.add(FlSpot(bodyTemperatureRecord.dateTime.millisecondsSinceEpoch.toDouble(), bodyTemperatureRecord.bodyTemperature));
+  }
 }

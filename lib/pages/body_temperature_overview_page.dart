@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:klinikdiary/data/body_temperature_record.dart';
 import '../widgets/body_temperature_chart.dart';
+import '../widgets/formats.dart';
 import '../widgets/styles.dart';
 import 'pages.dart';
 
@@ -60,17 +61,21 @@ final List<BodyTemperatureRecord> bodyTemperatureHistory = [
 ];
 
 class BodyTemperatureOverviewPage extends StatelessWidget {
-  const BodyTemperatureOverviewPage({Key? key}) : super(key: key);
+  BodyTemperatureOverviewPage({Key? key}) : super(key: key) {
+    _bodyTemperatureChart = BodyTemperatureChart(bodyTemperatureHistory: bodyTemperatureHistory);
+  }
+
+  late final BodyTemperatureChart _bodyTemperatureChart;
 
   @override
   Widget build(BuildContext context) {
+
     final Widget _bodyTemperatureDetailsButton = ElevatedButton(
         style: Styles.buttonStyle,
         onPressed: () {
-          Navigator.pushNamed(context, Pages.bodyTemperatureDetails,
-              arguments: BodyTemperatureRecord.nowNormalTemperature());
+          _addNewMeassurement(context);
         },
-        child: const Text('Body Temperature'));
+        child: const Text('Add'));
 
     return Scaffold(
         appBar: AppBar(
@@ -85,7 +90,8 @@ class BodyTemperatureOverviewPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: 600, width: 800, child: BodyTemperatureChart(bodyTemperatureHistory: bodyTemperatureHistory)),
+                  SizedBox(height: 600, width: 800, child: _bodyTemperatureChart),
+                  SizedBox(height: 15),
                   _bodyTemperatureDetailsButton
                 ],
               ),
@@ -93,4 +99,22 @@ class BodyTemperatureOverviewPage extends StatelessWidget {
           ),
         ));
   }
+
+  void _addNewMeassurement(BuildContext context) async {
+    final result = await Navigator.pushNamed(context, Pages.bodyTemperatureDetails,
+        arguments: BodyTemperatureRecord.nowNormalTemperature());
+
+    if (result != null) {
+      final BodyTemperatureRecord newBodyTemperatureRecord = result as BodyTemperatureRecord;
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Recorded body temperature of  ${newBodyTemperatureRecord.bodyTemperature.toStringAsFixed(1)} °C"
+            " at ${Formats.dateFormatDaMoYeHoMi.format(newBodyTemperatureRecord.dateTime)}."),
+      ));
+
+      bodyTemperatureHistory.add(newBodyTemperatureRecord);
+      _bodyTemperatureChart.add(newBodyTemperatureRecord); // TODO should better be implemented by observing the value list
+    }
+  }
+
 }

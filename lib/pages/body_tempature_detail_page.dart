@@ -28,12 +28,7 @@ class BodyTemperatureDetailPage extends StatelessWidget {
       onPressed: () {
         _bodyTemperatureRecord.bodyTemperature = _bodyTemperatureInput.value;
 
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Saved ${_bodyTemperatureRecord.bodyTemperature.toStringAsFixed(1)} °C"
-              " at ${_bodyTemperatureRecord.dateTime}."),
-        ));
-
-        Navigator.pop(context);
+        Navigator.pop(context, _bodyTemperatureRecord);
       },
       child: const Text('Save'),
     );
