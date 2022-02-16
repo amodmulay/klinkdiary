@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:klinikdiary/pages/BodyTempaturePage.dart';
+import 'package:klinikdiary/pages/Homepage.dart';
+import 'package:klinikdiary/pages/Pages.dart';
 
 void main() {
   runApp(const Klinikdiary());
@@ -24,7 +27,12 @@ class Klinikdiary extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const LandingPage(title: 'Flutter Demo Home Page'),
+      initialRoute: PAGE_LOGIN,
+      routes: {
+        PAGE_LOGIN : (context) => const LandingPage(title: "Klinik Diary"),
+        PAGE_HOME: (context) => const Homepage(),
+        PAGE_BODY_TEMPERATURE: (context) => const BodyTemperaturePage()
+      }
     );
   }
 }
@@ -78,7 +86,9 @@ class _LandingPageState extends State<LandingPage> {
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, PAGE_HOME);
+        },
         child: Text("Login",
             textAlign: TextAlign.center,
             style: style.copyWith(
@@ -87,6 +97,9 @@ class _LandingPageState extends State<LandingPage> {
     );
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Welcome to Klinik Diary"),
+      ),
       body: Center(
         child: Container(
           color: Colors.white,
