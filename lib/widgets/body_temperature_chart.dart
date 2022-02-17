@@ -100,7 +100,7 @@ class BodyTemperatureChart extends StatelessWidget {
         showTitles: true,
         reservedSize: 40,
         margin: 10,
-        interval: 24 * 60 * 60 * 1000,
+        interval: 4 * 24 * 60 * 60 * 1000,
         getTextStyles: (context, value) => const TextStyle(
           color: Colors.blue,
           fontSize: 16,

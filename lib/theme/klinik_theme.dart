@@ -102,3 +102,7 @@ class KlinikTheme {
     );
   }
 }
+
+class KlinikIcons {
+  static const IconData bodyTemperatureIcon = Icons.thermostat;
+}

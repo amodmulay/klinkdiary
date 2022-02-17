@@ -10,25 +10,44 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Widget _bodyTemperaturePageButton = ElevatedButton(
-      style: Styles.buttonStyle,
-      onPressed: () {
-        Navigator.pushNamed(context, Pages.bodyTemperatureOverview,
-            arguments: BodyTemperatureRecord.now(bodyTemperature: 37.5));
-      },
-      child: const Text('Body Temperature')
-    );
-
-    final Widget _bloodPreassurePageButton = ElevatedButton(
         style: Styles.buttonStyle,
         onPressed: () {
-
+          Navigator.pushNamed(context, Pages.bodyTemperatureList,
+              arguments: BodyTemperatureRecord.now(bodyTemperature: 37.5));
         },
-        child: const Text('Blood Pressure')
-    );
+        child: const Text('Body Temperature'));
+
+    final Widget _bloodPreassurePageButton =
+        ElevatedButton(style: Styles.buttonStyle, onPressed: () {}, child: const Text('Blood Pressure'));
 
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Klink Diary")
+        appBar: AppBar(title: const Text("Klink Diary"), actions: [
+          IconButton(
+              icon: const Icon(Icons.info),
+              onPressed: () {
+                showAboutDialog(
+                    context: context,
+                    applicationName: "Klinik Diary",
+                    applicationVersion: "0.0.1",
+                    children: const [
+                      Text("Made by"),
+                      Text(" Amod Mulay"),
+                      Text(" Christian Felbermair")
+                    ]
+                );
+              })
+        ]),
+        drawer: Drawer(
+          child: ListView(children: [
+            ListTile(
+                leading: const Icon(Icons.thermostat),
+                title: const Text("Body Temperature"),
+                onTap: () {
+                  Navigator.pushNamed(context, Pages.bodyTemperatureList,
+                      arguments: BodyTemperatureRecord.now(bodyTemperature: 37.5));
+                }),
+            ListTile(leading: const Icon(Icons.opacity), title: const Text("Blood Pressure"), onTap: () {})
+          ]),
         ),
         body: Center(
           child: Container(

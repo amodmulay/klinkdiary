@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:klinikdiary/pages/body_tempature_detail_page.dart';
-import 'package:klinikdiary/pages/body_temperature_overview_page.dart';
+import 'package:klinikdiary/pages/body_temperature_detail_page.dart';
+import 'package:klinikdiary/pages/body_temperature_list_page.dart';
+import 'package:klinikdiary/pages/body_temperature_chart_page.dart';
 import 'package:klinikdiary/pages/homepage.dart';
 import 'package:klinikdiary/pages/pages.dart';
 import 'theme/klinik_theme.dart';
@@ -26,7 +27,8 @@ class Klinikdiary extends StatelessWidget {
         routes: {
           Pages.login: (context) => const LoginPage(),
           Pages.home: (context) => const Homepage(),
-          Pages.bodyTemperatureOverview: (context) => const BodyTemperatureOverviewPage(),
+          Pages.bodyTemperatureList: (context) => const BodyTemperatureListPage(),
+          Pages.bodyTemperatureChart: (context) => const BodyTemperatureChartPage(),
           Pages.bodyTemperatureDetails: (context) => const BodyTemperatureDetailPage(),
         }
     );

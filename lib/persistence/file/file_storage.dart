@@ -22,7 +22,6 @@ class FileStorage {
 
   static Future<Map<String, dynamic>> readAsJsonMap({required FileDescriptor fileDescriptor}) async {
     var jsonString = await read(fileDescriptor: fileDescriptor);
-    print("1: $jsonString");
 
     if (jsonString.isEmpty) {
       return Future.value(<String, dynamic> {});
@@ -30,6 +29,11 @@ class FileStorage {
       final Map<String, dynamic> jsonMap = jsonDecode(jsonString);
       return Future<Map<String, dynamic>>.value(jsonMap);
     }
+  }
+
+  static writeAsJson({required FileDescriptor fileDescriptor, required Map<String, dynamic> jsonMap}) async {
+    final String jsonString = jsonEncode(jsonMap);
+    await write(fileDescriptor: fileDescriptor, content: jsonString);
   }
 
   static Future<String> read({required FileDescriptor fileDescriptor}) async {
