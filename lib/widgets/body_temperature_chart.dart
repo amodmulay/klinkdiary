@@ -2,6 +2,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:klinikdiary/data/body_temperature_record.dart';
 
+import 'formats.dart';
+
 int displayDaysInPast = 14;
 
 class BodyTemperatureChart extends StatelessWidget {
@@ -14,34 +16,39 @@ class BodyTemperatureChart extends StatelessWidget {
         .toList();
 
     spots = List<FlSpot>.generate(bodyTemperatureHistoryToDisplay.length,
-            (index) => _createFlSpot(bodyTemperatureHistoryToDisplay.elementAt(index)),
+        (index) => _createFlSpot(bodyTemperatureHistoryToDisplay.elementAt(index)),
         growable: true);
   }
 
   FlSpot _createFlSpot(BodyTemperatureRecord bodyTemperatureRecord) {
-    return FlSpot(bodyTemperatureRecord.dateTime.millisecondsSinceEpoch.toDouble(), bodyTemperatureRecord.bodyTemperature);
+    return FlSpot(
+        bodyTemperatureRecord.dateTime.millisecondsSinceEpoch.toDouble(), bodyTemperatureRecord.bodyTemperature);
+  }
+
+  void add(BodyTemperatureRecord bodyTemperatureRecord) {
+    spots.add(_createFlSpot(bodyTemperatureRecord));
   }
 
   @override
   Widget build(BuildContext context) {
     return LineChart(
-      lineChartData,
+      _lineChartData,
     );
   }
 
-  LineChartData get lineChartData => LineChartData(
-        lineTouchData: lineTouchData,
-        gridData: gridData,
-        titlesData: titlesData,
-        borderData: borderData,
-        lineBarsData: lineBarsData,
+  LineChartData get _lineChartData => LineChartData(
+        lineTouchData: _lineTouchData,
+        gridData: _gridData,
+        titlesData: _titlesData,
+        borderData: _borderData,
+        lineBarsData: _lineBarsData,
         minX: DateTime.now().subtract(Duration(days: displayDaysInPast)).millisecondsSinceEpoch.toDouble(),
         maxX: DateTime.now().millisecondsSinceEpoch.toDouble(),
         minY: 35,
         maxY: 42,
       );
 
-  FlGridData get gridData => FlGridData(
+  FlGridData get _gridData => FlGridData(
         show: true,
         drawHorizontalLine: true,
         drawVerticalLine: false,
@@ -54,27 +61,27 @@ class BodyTemperatureChart extends StatelessWidget {
         },
       );
 
-  LineTouchData get lineTouchData => LineTouchData(
+  LineTouchData get _lineTouchData => LineTouchData(
         handleBuiltInTouches: true,
         touchTooltipData: LineTouchTooltipData(
           tooltipBgColor: Colors.blueGrey.withOpacity(0.8),
         ),
       );
 
-  FlTitlesData get titlesData => FlTitlesData(
-        //bottomTitles: bottomTitles, TODO causes massive CPU load when activated
+  FlTitlesData get _titlesData => FlTitlesData(
+        bottomTitles: _bottomTitles,
         rightTitles: SideTitles(showTitles: false),
         topTitles: SideTitles(showTitles: false),
-        leftTitles: leftTitles(
+        leftTitles: _leftTitles(
           getTitles: (value) {
             return '${value.toInt()} °C';
           },
         ),
       );
 
-  List<LineChartBarData> get lineBarsData => [lineChartBarData()];
+  List<LineChartBarData> get _lineBarsData => [_lineChartBarData()];
 
-  SideTitles leftTitles({required GetTitleFunction getTitles}) => SideTitles(
+  SideTitles _leftTitles({required GetTitleFunction getTitles}) => SideTitles(
         getTitles: getTitles,
         showTitles: true,
         margin: 8,
@@ -86,21 +93,19 @@ class BodyTemperatureChart extends StatelessWidget {
         ),
       );
 
-  SideTitles get bottomTitles => SideTitles(
+  SideTitles get _bottomTitles => SideTitles(
         showTitles: true,
-        reservedSize: 22,
+        reservedSize: 40,
         margin: 10,
-        interval: 1,
+        interval: 24 * 60 * 60 * 1000,
         getTextStyles: (context, value) => const TextStyle(
           color: Colors.blue,
           fontSize: 16,
         ),
-        getTitles: (value) {
-          return "x";//formats.dateFormatDaMo.format(DateTime.fromMicrosecondsSinceEpoch(value.toInt()));
-        },
+        getTitles: (value) => (value % 100000 > 0) ? "" : Formats.dateFormatDaMo.format(DateTime.fromMillisecondsSinceEpoch(value.toInt()))
       );
 
-  FlBorderData get borderData => FlBorderData(
+  FlBorderData get _borderData => FlBorderData(
         show: true,
         border: const Border(
           bottom: BorderSide(color: Color(0xff4e4965), width: 4),
@@ -110,7 +115,7 @@ class BodyTemperatureChart extends StatelessWidget {
         ),
       );
 
-  LineChartBarData lineChartBarData() {
+  LineChartBarData _lineChartBarData() {
     return LineChartBarData(
       colors: [Colors.blue],
       barWidth: 4,
@@ -121,7 +126,4 @@ class BodyTemperatureChart extends StatelessWidget {
     );
   }
 
-  void add(BodyTemperatureRecord bodyTemperatureRecord) {
-    spots.add(FlSpot(bodyTemperatureRecord.dateTime.millisecondsSinceEpoch.toDouble(), bodyTemperatureRecord.bodyTemperature));
-  }
 }
