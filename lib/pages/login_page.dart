@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          Navigator.pushNamed(context, PAGE_HOME);
+          Navigator.pushNamed(context, Pages.home);
         },
         child: Text("Login",
             textAlign: TextAlign.center,

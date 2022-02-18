@@ -35,7 +35,7 @@ class Klinikdiary extends StatelessWidget {
         ),
         initialRoute: Pages.home,
         routes: {
-          Pages.login: (context) => const LandingPage(title: "Klinik Diary"),
+          Pages.login: (context) => const LoginPage(),
           Pages.home: (context) => const Homepage(),
           Pages.bodyTemperatureOverview: (context) => BodyTemperatureOverviewPage(),
           Pages.bodyTemperatureDetails: (context) => const BodyTemperatureDetailPage(),
