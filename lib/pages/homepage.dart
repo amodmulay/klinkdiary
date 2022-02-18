@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
 
-import '../data/BodyTemperatureRecord.dart';
-import 'Pages.dart';
+import '../data/body_temperature_record.dart';
+import '../widgets/styles.dart';
+import 'pages.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle _style = ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
-
     final Widget _bodyTemperaturePageButton = ElevatedButton(
-      style: _style,
+      style: Styles.buttonStyle,
       onPressed: () {
-        Navigator.pushNamed(context, PAGE_BODY_TEMPERATURE,
+        Navigator.pushNamed(context, Pages.bodyTemperatureOverview,
             arguments: BodyTemperatureRecord.now(bodyTemperature: 37.5));
       },
       child: const Text('Body Temperature')
+    );
+
+    final Widget _bloodPreassurePageButton = ElevatedButton(
+        style: Styles.buttonStyle,
+        onPressed: () {
+
+        },
+        child: const Text('Blood Pressure')
     );
 
     return Scaffold(
@@ -32,7 +39,7 @@ class Homepage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[_bodyTemperaturePageButton],
+                children: <Widget>[_bodyTemperaturePageButton, const SizedBox(height: 10.0), _bloodPreassurePageButton],
               ),
             ),
           ),
