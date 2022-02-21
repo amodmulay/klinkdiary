@@ -67,6 +67,15 @@ class _BodyTemperatureListPageState extends State<BodyTemperatureListPage> {
     FileStorage.writeAsJson(fileDescriptor: FileDescriptors.bodyTemperature, jsonMap: _bodyTemperatureData.toJson());
   }
 
+  deleteItem(int index) {
+    setState(() {
+      _bodyTemperatureData.bodyTemperatureHistory.removeAt(index);
+      _bodyTemperatureData.bodyTemperatureHistory.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+    });
+
+    FileStorage.writeAsJson(fileDescriptor: FileDescriptors.bodyTemperature, jsonMap: _bodyTemperatureData.toJson());
+  }
+
   @override
   Widget build(BuildContext context) {
     final Widget _addItemButton = IconButton(
@@ -114,18 +123,27 @@ class _BodyTemperatureListPageState extends State<BodyTemperatureListPage> {
     var timeString = Formats.dateFormatHoMi.format(bodyTemperatureHistoryItem.dateTime);
     var bodyTemperatureString = '${bodyTemperatureHistoryItem.bodyTemperature.toStringAsFixed(1)} °C';
 
-    return TextButton(
-      style: TextButton.styleFrom(
-        textStyle: const TextStyle(fontSize: 24),
-      ),
-      onPressed: () {
-        _editMeassurement(context, index);
-      },
-      child: Text(dateString + ' ' + timeString + '  ' + bodyTemperatureString),
-    );
+    return Row(
+        children: [
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: const TextStyle(fontSize: 24),
+            ),
+            onPressed: () {
+              _editMeassurement(context, index);
+            },
+            child: Text(dateString + ' ' + timeString + '  ' + bodyTemperatureString),
+          ),
+          IconButton(
+            icon: const Icon(Icons.delete, color: Colors.blue),
+            onPressed: () {
+              _deleteMeassurement(context, index);
+            }
+          )
+        ]);
   }
 
-  void _editMeassurement(BuildContext context, int index) async {
+  _editMeassurement(BuildContext context, int index) async {
     var result = await Navigator.pushNamed(context, Pages.bodyTemperatureDetails,
         arguments: _bodyTemperatureData.bodyTemperatureHistory[index]);
 
@@ -133,7 +151,7 @@ class _BodyTemperatureListPageState extends State<BodyTemperatureListPage> {
     updateItem(index, editedBodyTemperatureRecord);
   }
 
-  void _addNewMeassurement(BuildContext context) async {
+  _addNewMeassurement(BuildContext context) async {
     final result = await Navigator.pushNamed(context, Pages.bodyTemperatureDetails,
         arguments: BodyTemperatureRecord.nowNormalTemperature());
 
@@ -141,6 +159,10 @@ class _BodyTemperatureListPageState extends State<BodyTemperatureListPage> {
       final BodyTemperatureRecord newBodyTemperatureRecord = result as BodyTemperatureRecord;
       addItem(newBodyTemperatureRecord);
     }
+  }
+
+  _deleteMeassurement(BuildContext context, int index) {
+    deleteItem(index);
   }
 
 }
