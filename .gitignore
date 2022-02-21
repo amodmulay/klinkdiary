@@ -24,3 +24,6 @@ doc/api/
 /README 2.md
 /klinikdiary.iml
 /analysis_options.yaml
+/.flutter-plugins
+/.flutter-plugins-dependencies
+/lib/data/*.g.dart

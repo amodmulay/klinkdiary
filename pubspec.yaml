@@ -39,6 +39,11 @@ dependencies:
   english_words: ^4.0.0
   fl_chart: ^0.45.0
   intl: ^0.17.0
+  path_provider: ^2.0.9
+  json_annotation: ^4.4.0
+  json_serializable: ^6.1.4
+  build_runner: ^2.1.7
+  convert: ^3.0.1
 
 dev_dependencies:
   flutter_test:

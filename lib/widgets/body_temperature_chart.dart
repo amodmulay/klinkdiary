@@ -7,17 +7,20 @@ import 'formats.dart';
 int displayDaysInPast = 14;
 
 class BodyTemperatureChart extends StatelessWidget {
-  final List<BodyTemperatureRecord> bodyTemperatureHistory;
-  late final List<FlSpot> spots;
 
-  BodyTemperatureChart({Key? key, required this.bodyTemperatureHistory}) : super(key: key) {
+  final List<FlSpot> spots = List<FlSpot>.empty(growable: true);
+
+  BodyTemperatureChart({Key? key}) : super(key: key);
+
+  update({required List<BodyTemperatureRecord> bodyTemperatureHistory}) {
     List<BodyTemperatureRecord> bodyTemperatureHistoryToDisplay = bodyTemperatureHistory
         .where((bodyTemp) => bodyTemp.dateTime.isAfter(DateTime.now().subtract(Duration(days: displayDaysInPast))))
         .toList();
 
-    spots = List<FlSpot>.generate(bodyTemperatureHistoryToDisplay.length,
-        (index) => _createFlSpot(bodyTemperatureHistoryToDisplay.elementAt(index)),
-        growable: true);
+    spots.clear();
+    for (var bodyTemperatureRecord in bodyTemperatureHistoryToDisplay) {
+      spots.add(_createFlSpot(bodyTemperatureRecord));
+    }
   }
 
   FlSpot _createFlSpot(BodyTemperatureRecord bodyTemperatureRecord) {

@@ -2,6 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:klinikdiary/data/body_temperature_record.dart';
+import '../data/body_temperature_data.dart';
+import '../persistence/file/file_descriptors.dart';
+import '../persistence/file/file_storage.dart';
 import '../widgets/body_temperature_chart.dart';
 import '../widgets/formats.dart';
 import '../widgets/styles.dart';
@@ -9,7 +12,7 @@ import 'pages.dart';
 
 Random random = Random();
 int day = 1;
-final List<BodyTemperatureRecord> bodyTemperatureHistory = [
+final List<BodyTemperatureRecord> bodyTemperatureHistorySample = [
   BodyTemperatureRecord(
       dateTime: DateTime(2022, 2, day++, 8, 0, 1 + random.nextInt(58)),
       bodyTemperature: 35.0 + random.nextDouble() * 7.0),
@@ -60,12 +63,37 @@ final List<BodyTemperatureRecord> bodyTemperatureHistory = [
       bodyTemperature: 35.0 + random.nextDouble() * 7.0),
 ];
 
-class BodyTemperatureOverviewPage extends StatelessWidget {
-  BodyTemperatureOverviewPage({Key? key}) : super(key: key) {
-    _bodyTemperatureChart = BodyTemperatureChart(bodyTemperatureHistory: bodyTemperatureHistory);
+class BodyTemperatureOverviewPage extends StatefulWidget {
+
+  const BodyTemperatureOverviewPage({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _BodyTemperatureOverviewPageState();
+
+}
+
+class _BodyTemperatureOverviewPageState extends State<BodyTemperatureOverviewPage> {
+
+  BodyTemperatureData _bodyTemperatureData = BodyTemperatureData(bodyTemperatureHistory: []);
+  final BodyTemperatureChart _bodyTemperatureChart = BodyTemperatureChart();
+
+  @override
+  void initState() {
+    Future<Map<String, dynamic>> bodyTemperatureJsonMapFuture = FileStorage.readAsJsonMap(fileDescriptor: FileDescriptors.bodyTemperature);
+    bodyTemperatureJsonMapFuture.then((bodyTemperatureJsonMap) { update(bodyTemperatureJsonMap); });
+
+    super.initState();
   }
 
-  late final BodyTemperatureChart _bodyTemperatureChart;
+  void update(Map<String, dynamic> bodyTemperatureJsonMap) {
+    if (bodyTemperatureJsonMap.isEmpty) { // TODO remove is test code, empty map is fine when no data was recorded yet
+      _bodyTemperatureData = BodyTemperatureData(bodyTemperatureHistory: bodyTemperatureHistorySample);
+    } else {
+      _bodyTemperatureData = BodyTemperatureData.fromJson(bodyTemperatureJsonMap);
+    }
+
+    _bodyTemperatureChart.update(bodyTemperatureHistory: _bodyTemperatureData.bodyTemperatureHistory);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +119,7 @@ class BodyTemperatureOverviewPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(height: 600, width: 800, child: _bodyTemperatureChart),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   _bodyTemperatureDetailsButton
                 ],
               ),
@@ -112,7 +140,7 @@ class BodyTemperatureOverviewPage extends StatelessWidget {
             " at ${Formats.dateFormatDaMoYeHoMi.format(newBodyTemperatureRecord.dateTime)}."),
       ));
 
-      bodyTemperatureHistory.add(newBodyTemperatureRecord);
+      _bodyTemperatureData.bodyTemperatureHistory.add(newBodyTemperatureRecord);
       _bodyTemperatureChart.add(newBodyTemperatureRecord); // TODO should better be implemented by observing the value list
     }
   }
