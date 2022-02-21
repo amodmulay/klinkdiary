@@ -121,6 +121,7 @@ class BodyTemperatureChart extends StatelessWidget {
   LineChartBarData _lineChartBarData() {
     return LineChartBarData(
       colors: [Colors.blue],
+      isCurved: true,
       barWidth: 4,
       isStrokeCapRound: true,
       dotData: FlDotData(show: false),

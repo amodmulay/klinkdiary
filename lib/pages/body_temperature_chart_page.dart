@@ -25,7 +25,7 @@ class BodyTemperatureChartPage extends StatelessWidget {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(36.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
              Expanded(child: _bodyTemperatureChart),
