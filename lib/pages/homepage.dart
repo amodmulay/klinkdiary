@@ -51,7 +51,6 @@ class Homepage extends StatelessWidget {
         ),
         body: Center(
           child: Container(
-            color: Colors.white,
             padding: const EdgeInsets.all(36.0),
             child: Padding(
               padding: const EdgeInsets.all(36.0),
