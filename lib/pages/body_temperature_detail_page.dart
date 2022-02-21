@@ -1,3 +1,4 @@
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:klinikdiary/data/body_temperature_record.dart';
 import 'package:klinikdiary/widgets/double_input_vertical.dart';
@@ -17,6 +18,18 @@ class BodyTemperatureDetailPage extends StatelessWidget {
     } else {
       _bodyTemperatureRecord = args as BodyTemperatureRecord;
     }
+
+    final _dateTimePicker = DateTimePicker(
+      type: DateTimePickerType.dateTimeSeparate,
+      dateMask: 'd MMM, yyyy',
+      initialValue: _bodyTemperatureRecord.dateTime.toString(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+      icon: const Icon(Icons.event),
+      dateLabelText: 'Date',
+      timeLabelText: 'Time',
+      onChanged: (val) => _bodyTemperatureRecord.dateTime = DateTime.parse(val),
+    );
 
     // body temperature input
     final DoubleInputVertical _bodyTemperatureInput =
@@ -38,14 +51,12 @@ class BodyTemperatureDetailPage extends StatelessWidget {
           title: const Text("Body Temperature"),
         ),
         body: Center(
-          child: Container(
-            child: Padding(
-              padding: const EdgeInsets.all(36.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[_bodyTemperatureInput, const SizedBox(height: 25.0), _saveButton],
-              ),
+          child: Padding(
+            padding: const EdgeInsets.all(36.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[_dateTimePicker, _bodyTemperatureInput, const SizedBox(height: 25.0), _saveButton],
             ),
           ),
         ));
