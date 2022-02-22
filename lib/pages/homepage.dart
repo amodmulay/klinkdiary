@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../i18n/i18n.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:klinikdiary/components/icon_content.dart';
 import 'package:klinikdiary/components/reusable_card.dart';
@@ -23,7 +24,7 @@ class Homepage extends StatelessWidget {
     final Widget _bodyTemperaturePageButton = ReusableCard(
         color: kActiveCardColor,
         child: IconContent(
-            label: 'Body Temperature',
+            label: PhraseKey.bodyTemperature,
             icon: FontAwesomeIcons.temperatureHigh
         ),
     onTap: (){
@@ -35,22 +36,24 @@ class Homepage extends StatelessWidget {
     final Widget _bloodPreassurePageButton = ReusableCard(
         color: kActiveCardColor,
         child: IconContent(
-          label: 'Blood Pressure',
+          label: PhraseKey.bloodPressure,
           icon: FontAwesomeIcons.heart,
         ),
         onTap: () {
           Navigator.pushNamed(context, Pages.bloodPressure);
         });
 
+
     return Scaffold(
-        appBar: AppBar(title: const Text("Klink Diary"), actions: [
+        appBar: AppBar(title: Text(context.localize(PhraseKey.appName)), actions: [
           IconButton(
               icon: const Icon(Icons.info),
               onPressed: () {
                 showAboutDialog(
                     context: context,
-                    applicationName: "Klinik Diary",
+                    applicationName: context.localize(PhraseKey.appName),
                     applicationVersion: "0.0.1",
+
                     children: const [
                       Text("Made by"),
                       Text(" Amod Mulay"),
@@ -62,7 +65,7 @@ class Homepage extends StatelessWidget {
           child: ListView(children: [
             ListTile(
                 leading: const Icon(Icons.thermostat),
-                title: const Text("Body Temperature"),
+                title: Text(context.localize(PhraseKey.bodyTemperature)),
                 onTap: () {
                   Navigator.pushNamed(context, Pages.bodyTemperatureList,
                       arguments:
@@ -70,7 +73,7 @@ class Homepage extends StatelessWidget {
                 }),
             ListTile(
                 leading: const Icon(Icons.opacity),
-                title: const Text("Blood Pressure"),
+                title: const Text(PhraseKey.bloodPressure),
                 onTap: () {})
           ]),
         ),

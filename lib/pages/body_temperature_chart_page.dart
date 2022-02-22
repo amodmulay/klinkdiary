@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../data/body_temperature_data.dart';
+import '../i18n/i18n.dart';
 import '../widgets/body_temperature_chart.dart';
 
 class BodyTemperatureChartPage extends StatelessWidget {
@@ -21,7 +22,7 @@ class BodyTemperatureChartPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Body Temperature"),
+        title: Text(context.localize(PhraseKey.bodyTemperature)),
       ),
       body: Center(
         child: Padding(

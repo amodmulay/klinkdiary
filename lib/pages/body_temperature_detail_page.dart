@@ -1,8 +1,9 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:klinikdiary/data/body_temperature_record.dart';
-import 'package:klinikdiary/widgets/double_input_vertical.dart';
-import 'package:klinikdiary/widgets/styles.dart';
+import '../data/body_temperature_record.dart';
+import '../widgets/double_input_vertical.dart';
+import '../widgets/styles.dart';
+import '../i18n/i18n.dart';
 
 class BodyTemperatureDetailPage extends StatelessWidget {
   const BodyTemperatureDetailPage({Key? key}) : super(key: key);
@@ -26,8 +27,8 @@ class BodyTemperatureDetailPage extends StatelessWidget {
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
       icon: const Icon(Icons.event),
-      dateLabelText: 'Date',
-      timeLabelText: 'Time',
+      dateLabelText: context.localize(PhraseKey.date),
+      timeLabelText: context.localize(PhraseKey.time),
       onChanged: (val) => _bodyTemperatureRecord.dateTime = DateTime.parse(val),
     );
 
@@ -43,12 +44,12 @@ class BodyTemperatureDetailPage extends StatelessWidget {
 
         Navigator.pop(context, _bodyTemperatureRecord);
       },
-      child: const Text('Save'),
+      child: Text(context.localize(PhraseKey.save)),
     );
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Body Temperature"),
+          title: Text(context.localize(PhraseKey.bodyTemperature)),
         ),
         body: Center(
           child: Padding(

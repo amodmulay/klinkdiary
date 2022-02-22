@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:klinikdiary/data/body_temperature_record.dart';
+import '../data/body_temperature_record.dart';
 import '../data/body_temperature_data.dart';
 import '../data/demo_data.dart';
+import '../i18n/i18n.dart';
 import '../persistence/file/file_descriptors.dart';
 import '../persistence/file/file_storage.dart';
 import '../widgets/formats.dart';
@@ -84,7 +85,7 @@ class _BodyTemperatureListPageState extends State<BodyTemperatureListPage> {
         color: Colors.blue,
         size: 35,
       ),
-      tooltip: 'Add new record',
+      tooltip: context.localize(PhraseKey.addNewRecord),
       onPressed: () {
         _addNewMeassurement(context);
       },
@@ -100,7 +101,7 @@ class _BodyTemperatureListPageState extends State<BodyTemperatureListPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Body Temperature"),
+        title: Text(context.localize(PhraseKey.bodyTemperature)),
         actions: [
           IconButton(
               icon: const Icon(Icons.query_stats),
