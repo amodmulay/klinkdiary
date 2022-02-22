@@ -138,6 +138,16 @@ class _BodyTemperatureListPageState extends State<BodyTemperatureListPage> {
           IconButton(
             icon: const Icon(Icons.delete, color: Colors.blue),
             onPressed: () {
+              showDialog(context: context, builder: (context) {
+                return AlertDialog(
+                  title: Text(context.localize(PhraseKey.confirmDeleteRecordTitle)),
+                  content: Text(context.localize(PhraseKey.confirmDeleteRecordMessage)),
+                  actions: [
+                    TextButton(onPressed: () {}, child: Text),
+                    TextButton(onPressed: () {}, child: Text),
+                  ]
+                );
+              })
               _deleteMeassurement(context, index);
             }
           )
