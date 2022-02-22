@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:klinikdiary/pages/body_temperature_detail_page.dart';
-import 'package:klinikdiary/pages/body_temperature_list_page.dart';
-import 'package:klinikdiary/pages/body_temperature_chart_page.dart';
-import 'package:klinikdiary/pages/homepage.dart';
-import 'package:klinikdiary/pages/pages.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'i18n/i18n.dart';
+import 'pages/body_temperature_detail_page.dart';
+import 'pages/body_temperature_list_page.dart';
+import 'pages/body_temperature_chart_page.dart';
+import 'pages/homepage.dart';
+import 'pages/pages.dart';
+import 'pages/login_page.dart';
 import 'theme/klinik_theme.dart';
-import 'package:klinikdiary/pages/login_page.dart';
 
 
 void main() {
@@ -21,7 +23,7 @@ class Klinikdiary extends StatelessWidget {
 
     final theme = KlinikTheme.dark();
     return MaterialApp(
-        title: 'Flutter Demo',
+        title: "",
         theme: theme,
         initialRoute: Pages.home,
         routes: {
@@ -30,7 +32,14 @@ class Klinikdiary extends StatelessWidget {
           Pages.bodyTemperatureList: (context) => const BodyTemperatureListPage(),
           Pages.bodyTemperatureChart: (context) => const BodyTemperatureChartPage(),
           Pages.bodyTemperatureDetails: (context) => const BodyTemperatureDetailPage(),
-        }
+        },
+      localizationsDelegates: const [
+        AppLocalizationDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: AppLocalization.supportedLocales,
     );
   }
 }

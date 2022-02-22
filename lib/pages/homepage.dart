@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../i18n/i18n.dart';
 
 import '../data/body_temperature_record.dart';
 import '../widgets/styles.dart';
@@ -15,38 +16,36 @@ class Homepage extends StatelessWidget {
           Navigator.pushNamed(context, Pages.bodyTemperatureList,
               arguments: BodyTemperatureRecord.now(bodyTemperature: 37.5));
         },
-        child: const Text('Body Temperature'));
+        child: Text(context.localize(PhraseKey.bodyTemperature)));
 
     final Widget _bloodPreassurePageButton =
-        ElevatedButton(style: Styles.buttonStyle, onPressed: () {}, child: const Text('Blood Pressure'));
+        ElevatedButton(style: Styles.buttonStyle, onPressed: () {}, child: Text(context.localize(PhraseKey.bloodPressure)));
 
     return Scaffold(
-        appBar: AppBar(title: const Text("Klink Diary"), actions: [
+        appBar: AppBar(title: Text(context.localize(PhraseKey.appName)), actions: [
           IconButton(
               icon: const Icon(Icons.info),
               onPressed: () {
                 showAboutDialog(
                     context: context,
-                    applicationName: "Klinik Diary",
+                    applicationName: context.localize(PhraseKey.appName),
                     applicationVersion: "0.0.1",
-                    children: const [
-                      Text("Made by"),
-                      Text(" Amod Mulay"),
-                      Text(" Christian Felbermair")
-                    ]
-                );
+                    children: const []);
               })
         ]),
         drawer: Drawer(
           child: ListView(children: [
             ListTile(
                 leading: const Icon(Icons.thermostat),
-                title: const Text("Body Temperature"),
+                title: Text(context.localize(PhraseKey.bodyTemperature)),
                 onTap: () {
                   Navigator.pushNamed(context, Pages.bodyTemperatureList,
                       arguments: BodyTemperatureRecord.now(bodyTemperature: 37.5));
                 }),
-            ListTile(leading: const Icon(Icons.opacity), title: const Text("Blood Pressure"), onTap: () {})
+            ListTile(
+                leading: const Icon(Icons.opacity),
+                title: Text(context.localize(PhraseKey.bloodPressure)),
+                onTap: () {})
           ]),
         ),
         body: Center(
