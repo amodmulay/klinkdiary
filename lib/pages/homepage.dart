@@ -12,16 +12,25 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Widget _bodyTemperaturePageButton = ElevatedButton(
+ /*   final Widget _bodyTemperaturePageButton = ElevatedButton(
         style: Styles.buttonStyle,
         onPressed: () {
           Navigator.pushNamed(context, Pages.bodyTemperatureList,
               arguments: BodyTemperatureRecord.now(bodyTemperature: 37.5));
         },
-        child: const Text('Body Temperature'));
+        child: const Text('Body Temperature')); */
 
-    /* final Widget _bloodPreassurePageButton =
-        ElevatedButton(style: Styles.buttonStyle, onPressed: () {}, child: const Text('Blood Pressure')); */
+    final Widget _bodyTemperaturePageButton = ReusableCard(
+        color: kActiveCardColor,
+        child: IconContent(
+            label: 'Body Temperature',
+            icon: FontAwesomeIcons.temperatureHigh
+        ),
+    onTap: (){
+      Navigator.pushNamed(context, Pages.bodyTemperatureList,
+          arguments: BodyTemperatureRecord.now(bodyTemperature: 37.5));
+    }
+    );
 
     final Widget _bloodPreassurePageButton = ReusableCard(
         color: kActiveCardColor,
