@@ -5,18 +5,20 @@ import '../components/page_bottom_button.dart';
 import '../components/reusable_card.dart';
 import '../theme/constants.dart';
 import '../components/round_icon_button.dart';
-import '../data/bp_store.dart';*/
+import '../data/bp_store.dart';
+import '../data/bp_store.dart'; */
+import '../i18n/i18n.dart';
 
 class BloodPressureInputPage extends StatelessWidget {
-
   const BloodPressureInputPage({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
 
       appBar: AppBar(
-        title: const Text('BLOOD PRESSURE'),
+        title: Text(context.localize(PhraseKey.bloodPressure)),
       ),
       body: Column (
         mainAxisAlignment: MainAxisAlignment.center,
