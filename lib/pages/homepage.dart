@@ -3,41 +3,29 @@ import '../i18n/i18n.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:klinikdiary/components/icon_content.dart';
 import 'package:klinikdiary/components/reusable_card.dart';
-import '../data/body_temperature_record.dart';
-import '../widgets/styles.dart';
 import 'pages.dart';
 import '../theme/constants.dart';
-import '../i18n/i18n.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
- /*   final Widget _bodyTemperaturePageButton = ElevatedButton(
-        style: Styles.buttonStyle,
-        onPressed: () {
-          Navigator.pushNamed(context, Pages.bodyTemperatureList,
-              arguments: BodyTemperatureRecord.now(bodyTemperature: 37.5));
-        },
-        child: const Text('Body Temperature')); */
-
     final Widget _bodyTemperaturePageButton = ReusableCard(
         color: kActiveCardColor,
         child: IconContent(
-            label: PhraseKey.bodyTemperature.toString(),
+            label: context.localize(PhraseKey.bodyTemperature),
             icon: FontAwesomeIcons.temperatureHigh
         ),
-    onTap: (){
-      Navigator.pushNamed(context, Pages.bodyTemperatureList,
-          arguments: BodyTemperatureRecord.now(bodyTemperature: 37.5));
-    }
+        onTap: () {
+          Navigator.pushNamed(context, Pages.bodyTemperatureList);
+        }
     );
 
-    final Widget _bloodPreassurePageButton = ReusableCard(
+    final Widget _bloodPressurePageButton = ReusableCard(
         color: kActiveCardColor,
         child: IconContent(
-          label: PhraseKey.bloodPressure.toString(),
+          label: context.localize(PhraseKey.bloodPressure),
           icon: FontAwesomeIcons.heart,
         ),
         onTap: () {
@@ -65,17 +53,17 @@ class Homepage extends StatelessWidget {
         drawer: Drawer(
           child: ListView(children: [
             ListTile(
-                leading: const Icon(Icons.thermostat),
+                leading: const Icon(FontAwesomeIcons.temperatureHigh),
                 title: Text(context.localize(PhraseKey.bodyTemperature)),
                 onTap: () {
-                  Navigator.pushNamed(context, Pages.bodyTemperatureList,
-                      arguments:
-                          BodyTemperatureRecord.now(bodyTemperature: 37.5));
+                  Navigator.pushNamed(context, Pages.bodyTemperatureList);
                 }),
             ListTile(
-                leading: const Icon(Icons.opacity),
-                title: const Text("fix this"),
-                onTap: () {})
+                leading: const Icon(FontAwesomeIcons.heart),
+                title: Text(context.localize(PhraseKey.bloodPressure)),
+                onTap: () {
+                  Navigator.pushNamed(context, Pages.bloodPressure);
+                })
           ]),
         ),
         body: Center(
@@ -89,7 +77,7 @@ class Homepage extends StatelessWidget {
                 children: <Widget>[
                   _bodyTemperaturePageButton,
                   const SizedBox(height: 10.0),
-                  _bloodPreassurePageButton
+                  _bloodPressurePageButton
                 ],
               ),
             ),

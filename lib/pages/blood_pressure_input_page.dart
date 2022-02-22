@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+/*import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../components/page_bottom_button.dart';
 import '../components/reusable_card.dart';
 import '../theme/constants.dart';
 import '../components/round_icon_button.dart';
-import '../data/bp_store.dart';
+import '../data/bp_store.dart';*/
 
 class BloodPressureInputPage extends StatelessWidget {
-  const BloodPressureInputPage({Key? key}) : super(key: key);
 
+  const BloodPressureInputPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
