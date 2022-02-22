@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'i18n/i18n.dart';
 import 'pages/body_temperature_detail_page.dart';
@@ -8,6 +9,7 @@ import 'pages/homepage.dart';
 import 'pages/pages.dart';
 import 'pages/login_page.dart';
 import 'theme/klinik_theme.dart';
+
 
 
 void main() {
@@ -32,6 +34,7 @@ class Klinikdiary extends StatelessWidget {
           Pages.bodyTemperatureList: (context) => const BodyTemperatureListPage(),
           Pages.bodyTemperatureChart: (context) => const BodyTemperatureChartPage(),
           Pages.bodyTemperatureDetails: (context) => const BodyTemperatureDetailPage(),
+          Pages.bloodPressure: (context) =>   BloodPressureInputPage(),
         },
       localizationsDelegates: const [
         AppLocalizationDelegate(),
@@ -40,6 +43,8 @@ class Klinikdiary extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: AppLocalization.supportedLocales,
+          
+        }
     );
   }
 }
