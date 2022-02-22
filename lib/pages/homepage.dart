@@ -44,7 +44,7 @@ class Homepage extends StatelessWidget {
                     applicationVersion: "0.0.1",
 
                     children: const [
-                      Text("Made by"),
+                      Text("Developed by"),
                       Text(" Amod Mulay"),
                       Text(" Christian Felbermair")
                     ]);
