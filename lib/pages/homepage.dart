@@ -7,6 +7,7 @@ import '../data/body_temperature_record.dart';
 import '../widgets/styles.dart';
 import 'pages.dart';
 import '../theme/constants.dart';
+import '../i18n/i18n.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class Homepage extends StatelessWidget {
     final Widget _bodyTemperaturePageButton = ReusableCard(
         color: kActiveCardColor,
         child: IconContent(
-            label: PhraseKey.bodyTemperature,
+            label: PhraseKey.bodyTemperature.toString(),
             icon: FontAwesomeIcons.temperatureHigh
         ),
     onTap: (){
@@ -36,7 +37,7 @@ class Homepage extends StatelessWidget {
     final Widget _bloodPreassurePageButton = ReusableCard(
         color: kActiveCardColor,
         child: IconContent(
-          label: PhraseKey.bloodPressure,
+          label: PhraseKey.bloodPressure.toString(),
           icon: FontAwesomeIcons.heart,
         ),
         onTap: () {
@@ -73,7 +74,7 @@ class Homepage extends StatelessWidget {
                 }),
             ListTile(
                 leading: const Icon(Icons.opacity),
-                title: const Text(PhraseKey.bloodPressure),
+                title: const Text("fix this"),
                 onTap: () {})
           ]),
         ),

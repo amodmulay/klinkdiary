@@ -8,6 +8,8 @@ import '../components/round_icon_button.dart';
 import '../data/bp_store.dart';
 
 class BloodPressureInputPage extends StatelessWidget {
+  const BloodPressureInputPage({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {

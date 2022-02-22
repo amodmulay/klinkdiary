@@ -5,6 +5,7 @@ import 'i18n/i18n.dart';
 import 'pages/body_temperature_detail_page.dart';
 import 'pages/body_temperature_list_page.dart';
 import 'pages/body_temperature_chart_page.dart';
+import 'pages/blood_pressure_input_page.dart';
 import 'pages/homepage.dart';
 import 'pages/pages.dart';
 import 'pages/login_page.dart';
@@ -34,7 +35,7 @@ class Klinikdiary extends StatelessWidget {
           Pages.bodyTemperatureList: (context) => const BodyTemperatureListPage(),
           Pages.bodyTemperatureChart: (context) => const BodyTemperatureChartPage(),
           Pages.bodyTemperatureDetails: (context) => const BodyTemperatureDetailPage(),
-          Pages.bloodPressure: (context) =>   BloodPressureInputPage(),
+          Pages.bloodPressure: (context) => const BloodPressureInputPage(),
         },
       localizationsDelegates: const [
         AppLocalizationDelegate(),
@@ -43,8 +44,6 @@ class Klinikdiary extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: AppLocalization.supportedLocales,
-          
-        }
     );
   }
 }
