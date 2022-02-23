@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../i18n/i18n.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:klinikdiary/components/icon_content.dart';
-import 'package:klinikdiary/components/reusable_card.dart';
+import '../components/icon_content.dart';
+import '../components/reusable_card.dart';
 import 'pages.dart';
 import '../theme/constants.dart';
 

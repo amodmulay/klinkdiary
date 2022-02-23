@@ -136,7 +136,7 @@ class _BodyTemperatureListPageState extends State<BodyTemperatureListPage> {
             child: Text(dateString + ' ' + timeString + '  ' + bodyTemperatureString),
           ),
           IconButton(
-            icon: const Icon(Icons.delete, color: Colors.blue),
+            icon: const Icon(Icons.delete),
             onPressed: () {
               var deleteConfirmed = showDialog(context: context, builder: (context) {
                 return AlertDialog(
@@ -162,8 +162,10 @@ class _BodyTemperatureListPageState extends State<BodyTemperatureListPage> {
     var result = await Navigator.pushNamed(context, Pages.bodyTemperatureDetails,
         arguments: _bodyTemperatureData.bodyTemperatureHistory[index]);
 
-    final BodyTemperatureRecord editedBodyTemperatureRecord = result as BodyTemperatureRecord;
-    updateItem(index, editedBodyTemperatureRecord);
+    if (result != null) {
+      final BodyTemperatureRecord editedBodyTemperatureRecord = result as BodyTemperatureRecord;
+      updateItem(index, editedBodyTemperatureRecord);
+    }
   }
 
   _addNewMeassurement(BuildContext context) async {
