@@ -25,7 +25,7 @@ class Klinikdiary extends StatelessWidget {
 
     final theme = KlinikTheme.dark();
     return MaterialApp(
-        title: "",
+        title: context.localize(PhraseKey.appName),
         theme: theme,
         initialRoute: Pages.home,
         routes: {

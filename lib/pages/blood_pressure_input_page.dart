@@ -23,6 +23,11 @@ class BloodPressureInputPage extends StatelessWidget {
       body: Column (
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(child: Row(
+
+          ))
+        ],
       ),
 
     );
