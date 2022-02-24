@@ -15,12 +15,10 @@ class Homepage extends StatelessWidget {
         color: kActiveCardColor,
         child: IconContent(
             label: context.localize(PhraseKey.bodyTemperature),
-            icon: FontAwesomeIcons.temperatureHigh
-        ),
+            icon: FontAwesomeIcons.thermometerEmpty),
         onTap: () {
           Navigator.pushNamed(context, Pages.bodyTemperatureList);
-        }
-    );
+        });
 
     final Widget _bloodPressurePageButton = ReusableCard(
         color: kActiveCardColor,
@@ -32,9 +30,10 @@ class Homepage extends StatelessWidget {
           Navigator.pushNamed(context, Pages.bloodPressure);
         });
 
-
     return Scaffold(
-        appBar: AppBar(title: Text(context.localize(PhraseKey.appName)), actions: [
+        appBar:
+            AppBar(title: Text(context.localize(PhraseKey.appName), style: Theme.of(context).appBarTheme.titleTextStyle),
+                actions: [
           IconButton(
               icon: const Icon(Icons.info),
               onPressed: () {
@@ -42,7 +41,6 @@ class Homepage extends StatelessWidget {
                     context: context,
                     applicationName: context.localize(PhraseKey.appName),
                     applicationVersion: "0.0.1",
-
                     children: const [
                       Text("Developed by"),
                       Text(" Amod Mulay"),
@@ -53,7 +51,7 @@ class Homepage extends StatelessWidget {
         drawer: Drawer(
           child: ListView(children: [
             ListTile(
-                leading: const Icon(FontAwesomeIcons.temperatureHigh),
+                leading: const Icon(FontAwesomeIcons.thermometerEmpty),
                 title: Text(context.localize(PhraseKey.bodyTemperature)),
                 onTap: () {
                   Navigator.pushNamed(context, Pages.bodyTemperatureList);

@@ -45,7 +45,7 @@ dependencies:
   convert: ^3.0.1
   font_awesome_flutter: ^9.0.0
   google_fonts: 2.2.0
-  velocity_x: ^3.4.0
+
   date_time_picker: ^2.1.0
 
 dev_dependencies:
