@@ -5,4 +5,5 @@ class Pages {
   static const String bodyTemperatureChart = '/bodyTemperatureChart';
   static const String bodyTemperatureDetails = '/bodyTemperatureDetails';
   static const String bloodPressure = '/bloodPressure';
+  static const String blank = '/blank';
 }

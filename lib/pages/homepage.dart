@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../i18n/i18n.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:klinikdiary/components/icon_content.dart';
-import 'package:klinikdiary/components/reusable_card.dart';
+import 'package:klinikdiary/widgets/icon_content.dart';
+import 'package:klinikdiary/widgets/reusable_card.dart';
 import 'pages.dart';
 import '../theme/constants.dart';
 
@@ -61,6 +61,12 @@ class Homepage extends StatelessWidget {
                 title: Text(context.localize(PhraseKey.bloodPressure)),
                 onTap: () {
                   Navigator.pushNamed(context, Pages.bloodPressure);
+                }),
+            ListTile(
+                leading: const Icon(FontAwesomeIcons.screwdriver),
+                title: Text(context.localize(PhraseKey.settings)),
+                onTap: () {
+                  Navigator.pushNamed(context, Pages.blank);
                 })
           ]),
         ),
@@ -80,6 +86,27 @@ class Homepage extends StatelessWidget {
               ),
             ),
           ),
-        ));
+
+        ), bottomNavigationBar: BottomNavigationBar(
+      // 5
+      selectedItemColor:
+      Theme.of(context).textSelectionTheme.selectionColor,
+      // TODO: Set selected tab bar
+      // 6
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(FontAwesomeIcons.thermometerEmpty),
+          label: "",
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(FontAwesomeIcons.heart),
+            label: ""
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(FontAwesomeIcons.book),
+            label: ""
+        ),
+      ],
+    ),);
   }
 }
