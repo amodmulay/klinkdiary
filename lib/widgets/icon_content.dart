@@ -17,7 +17,7 @@ class IconContent extends StatelessWidget {
           icon,
           size: iconSize,
         ),
-        SizedBox(height: labelIconSpacing),
+        const SizedBox(height: labelIconSpacing),
         Text(
           label.toUpperCase(),
           style: kLabelTextStyle,

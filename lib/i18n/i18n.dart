@@ -14,6 +14,9 @@ enum PhraseKey {
   date,
   save,
   time,
+  settings,
+  systolic,
+  diastolic,
 }
 
 const String languageCodeEN = "en";
@@ -44,6 +47,9 @@ class AppLocalization {
       PhraseKey.date: "Date",
       PhraseKey.save: "Save",
       PhraseKey.time: "Time",
+      PhraseKey.settings: "Settings",
+      PhraseKey.systolic: "Systolic",
+      PhraseKey.diastolic: "Diastolic",
     },
     languageCodeDE: {
       PhraseKey.addNewRecord: "Neuer Eintrag",
@@ -57,6 +63,9 @@ class AppLocalization {
       PhraseKey.date: "Datum",
       PhraseKey.save: "Speichern",
       PhraseKey.time: "Uhrzeit",
+      PhraseKey.settings: "Einstellungen",
+      PhraseKey.systolic: "Systolic",
+      PhraseKey.diastolic: "Diastolic",
     }
   };
 }

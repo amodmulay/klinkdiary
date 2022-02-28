@@ -1,41 +1,109 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 /*import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../components/page_bottom_button.dart';
 import '../components/reusable_card.dart';
-import '../theme/constants.dart';
 import '../components/round_icon_button.dart';
 import '../data/bp_store.dart';
 import '../data/bp_store.dart'; */
+import '../widgets/reusable_card.dart';
+import '../widgets/round_icon_button.dart';
 import '../i18n/i18n.dart';
+import '../theme/constants.dart';
 
 class BloodPressureInputPage extends StatelessWidget {
   const BloodPressureInputPage({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
         title: Text(context.localize(PhraseKey.bloodPressure)),
       ),
-      body: Column (
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(child: Row(
-
-          ))
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        context.localize(PhraseKey.systolic),
+                        style: kLabelTextStyle,
+                      ),
+                      Text(
+                        "70",
+                        style: kLargeNumberLabelTextStyle,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RoundIconButton(
+                            icon: FontAwesomeIcons.plus,
+                            onPressed: () {},
+                          ),
+                          const SizedBox(width: 10),
+                          RoundIconButton(
+                            icon: FontAwesomeIcons.minus,
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        context.localize(PhraseKey.systolic),
+                        style: kLabelTextStyle,
+                      ),
+                      Text(
+                        "120",
+                        style: kLargeNumberLabelTextStyle,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RoundIconButton(
+                            icon: FontAwesomeIcons.plus,
+                            onPressed: () {},
+                          ),
+                          const SizedBox(width: 10),
+                          RoundIconButton(
+                            icon: FontAwesomeIcons.minus,
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
-
     );
-  }}
+  }
+}
 
-    //BPStore store = VxState.store as BPStore;
+//BPStore store = VxState.store as BPStore;
 
-    /*return Scaffold(
+/*return Scaffold(
         appBar: AppBar(
           title: const Text('BLOOD PRESSURE'),
         ),
@@ -204,5 +272,5 @@ class BloodPressureInputPage extends StatelessWidget {
             ),*/
           ],
         )); */
- // }
+// }
 //}
