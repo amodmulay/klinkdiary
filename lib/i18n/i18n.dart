@@ -17,6 +17,7 @@ enum PhraseKey {
   settings,
   systolic,
   diastolic,
+  heartRate
 }
 
 const String languageCodeEN = "en";
@@ -50,6 +51,7 @@ class AppLocalization {
       PhraseKey.settings: "Settings",
       PhraseKey.systolic: "Systolic",
       PhraseKey.diastolic: "Diastolic",
+      PhraseKey.heartRate: "Heart Rate",
     },
     languageCodeDE: {
       PhraseKey.addNewRecord: "Neuer Eintrag",
@@ -66,6 +68,7 @@ class AppLocalization {
       PhraseKey.settings: "Einstellungen",
       PhraseKey.systolic: "Systolic",
       PhraseKey.diastolic: "Diastolic",
+      PhraseKey.heartRate: "Heart Rate",
     }
   };
 }
