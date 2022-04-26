@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../data/body_temperature_data.dart';
 import '../i18n/i18n.dart';
-import '../widgets/body_temperature_chart.dart';
+import '../widgets/body_temperature_bar_chart.dart';
 
 class BodyTemperatureChartPage extends StatelessWidget {
   const BodyTemperatureChartPage({Key? key}) : super(key: key);
@@ -17,8 +17,11 @@ class BodyTemperatureChartPage extends StatelessWidget {
       _bodyTemperatureData = args as BodyTemperatureData;
     }
 
-    final BodyTemperatureChart _bodyTemperatureChart = BodyTemperatureChart();
-    _bodyTemperatureChart.update(bodyTemperatureHistory: _bodyTemperatureData.bodyTemperatureHistory);
+    //final BodyTemperatureLineChart _bodyTemperatureChart = BodyTemperatureLineChart();
+    //_bodyTemperatureChart.update(bodyTemperatureHistory: _bodyTemperatureData.bodyTemperatureHistory);
+
+    final BodyTemperatureBarChart _bodyTemperatureChart = BodyTemperatureBarChart();
+    //_bodyTemperatureChart.update(bodyTemperatureHistory: _bodyTemperatureData.bodyTemperatureHistory);
 
     return Scaffold(
       appBar: AppBar(

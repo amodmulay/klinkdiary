@@ -6,10 +6,10 @@ import '/data/body_temperature_record.dart';
 const int displayDaysInPast = 21;
 const int bottomTitlesGranularity = 4; // in days
 
-class BodyTemperatureChart extends StatelessWidget {
+class BodyTemperatureLineChart extends StatelessWidget {
   final List<FlSpot> spots = List<FlSpot>.empty(growable: true);
 
-  BodyTemperatureChart({Key? key}) : super(key: key);
+  BodyTemperatureLineChart({Key? key}) : super(key: key);
 
   update({required List<BodyTemperatureRecord> bodyTemperatureHistory}) {
     List<BodyTemperatureRecord> bodyTemperatureHistoryToDisplay = bodyTemperatureHistory
@@ -43,12 +43,9 @@ class BodyTemperatureChart extends StatelessWidget {
         gridData: _gridData,
         titlesData: FlTitlesData(
             topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: true, reservedSize: 30,
-                getTitlesWidget: _leftTitleWidgetFunction)),
+            leftTitles: _leftTitles(),
             rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: true, reservedSize: 30,
-              getTitlesWidget: _bottomTitleWidgetFunction,
-              interval: 1000.0 * 60 * 60 * 24 * bottomTitlesGranularity, ))
+            bottomTitles: _bottomTitles()
         ),
         lineBarsData: _lineBarsData,
         minX: DateTime.now().subtract(Duration(days: displayDaysInPast)).millisecondsSinceEpoch.toDouble(),
@@ -57,6 +54,13 @@ class BodyTemperatureChart extends StatelessWidget {
         maxY: 42,
       );
 
+  _leftTitles() =>
+    AxisTitles(sideTitles: SideTitles(
+          showTitles: true, //
+          reservedSize: 30, //
+          getTitlesWidget: _leftTitleWidgetFunction)
+    );
+
   Widget _leftTitleWidgetFunction(double value, TitleMeta meta) {
     const style = TextStyle(
       color: Color(0xff7589a2),
@@ -64,8 +68,16 @@ class BodyTemperatureChart extends StatelessWidget {
       fontSize: 14,
     );
     String text = value.toStringAsFixed(1);
+
     return Center(child: Text(text, style: style));
   }
+
+  _bottomTitles() =>
+      AxisTitles(sideTitles: SideTitles(
+        showTitles: true, //
+        reservedSize: 30, //
+        getTitlesWidget: _bottomTitleWidgetFunction, //
+        interval: 1000.0 * 60 * 60 * 24 * bottomTitlesGranularity, ));
 
   Widget _bottomTitleWidgetFunction(double value, TitleMeta meta) {
     const style = TextStyle(
