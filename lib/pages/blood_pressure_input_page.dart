@@ -7,14 +7,25 @@ import '../i18n/i18n.dart';
 import '../theme/constants.dart';
 import '../data/bp_record.dart';
 
-class BloodPressureInputPage extends StatelessWidget {
+class BloodPressureInputPage extends StatefulWidget {
   const BloodPressureInputPage({Key? key}) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() => _InputWidget();
+}
+
+class _InputWidget extends State<BloodPressureInputPage>
+{
+  final BPRecord _bpRecord = BPRecord.getNormalBPValues();
+
+  @override
   Widget build(BuildContext context) {
-    final BPRecord _bpRecord = BPRecord.getNormalBPValues();
-    final HorizontalSlider _horizontalSlider =
-        HorizontalSlider(maxValue: 180, minValue: 35, currentSliderValue: 60);
+
+    final HorizontalSlider _horizontalSlider = HorizontalSlider(
+        maxValue: 180,
+        minValue: 35,
+        label: "bpm",
+        currentSliderValue: _bpRecord.heartRate.toDouble());
 
     final _dateTimePicker = DateTimePicker(
       type: DateTimePickerType.dateTimeSeparate,
@@ -28,145 +39,104 @@ class BloodPressureInputPage extends StatelessWidget {
       onChanged: (val) => _bpRecord.dateTime = DateTime.parse(val),
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(context.localize(PhraseKey.bloodPressure)),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          //BP area
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              context.localize(PhraseKey.systolic),
-                              style: kLabelTextStyle,
-                            ),
-                            Text(
-                              _bpRecord.systolic.toString(),
-                              style: kLargeNumberLabelTextStyle,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                RoundIconButton(
-                                  icon: FontAwesomeIcons.plus,
-                                  onPressed: () {},
-                                ),
-                                const SizedBox(width: 10),
-                                RoundIconButton(
-                                  icon: FontAwesomeIcons.minus,
-                                  onPressed: () {},
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              context.localize(PhraseKey.diastolic),
-                              style: kLabelTextStyle,
-                            ),
-                            Text(
-                              _bpRecord.diastolic.toString(),
-                              style: kLargeNumberLabelTextStyle,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                RoundIconButton(
-                                  icon: FontAwesomeIcons.plus,
-                                  onPressed: () {},
-                                ),
-                                const SizedBox(width: 10),
-                                RoundIconButton(
-                                  icon: FontAwesomeIcons.minus,
-                                  onPressed: () {},
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+    final _bpArea = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text(
+            context.localize(PhraseKey.systolic),
+            style: kLabelTextStyle,
           ),
-          // Heart Rate Area
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(36.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          context.localize(PhraseKey.heartRate),
-                          style: kLabelTextStyle,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.baseline,
-                          textBaseline: TextBaseline.alphabetic,
-                          children: [
-                            Text(
-                              _bpRecord.heartRate.toString(),
-                              style: kLargeNumberLabelTextStyle,
-                            ),
-                            const Text(
-                              " bpm",
-                              style: kLabelTextStyle,
-                            ),
-                          ],
-                        ),
-                        _horizontalSlider,
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          Text(
+            _bpRecord.systolic.toString(),
+            style: kLargeNumberLabelTextStyle,
           ),
-          //Date Time area
-          Expanded(
-              child: Row(
+          Row(
             children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(36.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [_dateTimePicker],
-                  ),
-                ),
-              )
+              RoundIconButton(
+                icon: FontAwesomeIcons.plus,
+                onPressed: () {},
+              ),
+              const SizedBox(width: 10),
+              RoundIconButton(
+                icon: FontAwesomeIcons.minus,
+                onPressed: () {
+                    },
+              ),
             ],
-          )),
-        ],
-      ),
+          )
+        ]),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              context.localize(PhraseKey.diastolic),
+              style: kLabelTextStyle,
+            ),
+            Text(
+              _bpRecord.diastolic.toString(),
+              style: kLargeNumberLabelTextStyle,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RoundIconButton(
+                  icon: FontAwesomeIcons.plus,
+                  onPressed: () {
+                    setState(() {
+                      _bpRecord.diastolic = _bpRecord.diastolic+1;
+                    });
+
+                    print(_bpRecord.diastolic);
+                  },
+                ),
+                const SizedBox(width: 10),
+                RoundIconButton(
+                  icon: FontAwesomeIcons.minus,
+                  onPressed: () {
+                    setState(() {
+                      _bpRecord.diastolic = _bpRecord.diastolic-1;
+                    });
+                  },
+                ),
+              ],
+            )
+          ],
+        )
+      ],
     );
+
+    final _heartRateArea =
+        Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+      Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              context.localize(PhraseKey.heartRate),
+              style: kLabelTextStyle,
+            ),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
+                children: [_horizontalSlider])
+          ])
+    ]);
+    final _bP = Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+      const SizedBox(height: 30),
+      _bpArea,
+      const SizedBox(height: 30),
+      _heartRateArea,
+      const SizedBox(height: 30),
+      _dateTimePicker
+    ]);
+    final _widgetBp = Scaffold(
+        appBar: AppBar(
+          title: Text(context.localize(PhraseKey.bloodPressure)),
+        ),
+        body: _bP);
+
+    return _widgetBp;
   }
 }
