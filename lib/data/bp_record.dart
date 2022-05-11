@@ -19,7 +19,7 @@ class BPRecord extends Record {
 
   static BPRecord getNormalBPValues() {
     return BPRecord(
-        dateTime: DateTime.now(), systolic: 110, diastolic: 70, heartRate: 65);
+        dateTime: DateTime.now(), systolic: 110, diastolic: 70, heartRate: 70);
   }
 
   factory BPRecord.fromJson(Map<String, dynamic> json) =>
