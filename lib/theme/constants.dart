@@ -39,7 +39,7 @@ const kRoundIconButtonConstraints =
 BoxConstraints.tightFor(width: 56.0, height: 56.0);
 
 const Color kActiveCardColor = Color(0xFF1D1E33);
-const Color kInactiveCardColor = Colors.black;
+const Color kInactiveCardColor = Colors.white;
 const Color kBottomContainerColor = Colors.deepOrange;
 const Color kRoundIconButtonColor = Color(0xFF4C4F5E);
 
