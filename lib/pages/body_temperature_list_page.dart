@@ -87,7 +87,7 @@ class _BodyTemperatureListPageState extends State<BodyTemperatureListPage> {
       ),
       tooltip: context.localize(PhraseKey.addNewRecord),
       onPressed: () {
-        _addNewMeassurement(context);
+        _addNewMessurement(context);
       },
     );
 
@@ -131,7 +131,7 @@ class _BodyTemperatureListPageState extends State<BodyTemperatureListPage> {
               textStyle: const TextStyle(fontSize: 24),
             ),
             onPressed: () {
-              _editMeassurement(context, index);
+              _editMessurement(context, index);
             },
             child: Text(dateString + ' ' + timeString + '  ' + bodyTemperatureString),
           ),
@@ -152,13 +152,13 @@ class _BodyTemperatureListPageState extends State<BodyTemperatureListPage> {
                   ]
                 );
               });
-              deleteConfirmed.then((value) { if (value ?? false) { _deleteMeassurement(context, index); } } );
+              deleteConfirmed.then((value) { if (value ?? false) { _deleteMessurement(context, index); } } );
             }
           )
         ]);
   }
 
-  _editMeassurement(BuildContext context, int index) async {
+  _editMessurement(BuildContext context, int index) async {
     var result = await Navigator.pushNamed(context, Pages.bodyTemperatureDetails,
         arguments: _bodyTemperatureData.bodyTemperatureHistory[index]);
 
@@ -166,7 +166,7 @@ class _BodyTemperatureListPageState extends State<BodyTemperatureListPage> {
     updateItem(index, editedBodyTemperatureRecord);
   }
 
-  _addNewMeassurement(BuildContext context) async {
+  _addNewMessurement(BuildContext context) async {
     final result = await Navigator.pushNamed(context, Pages.bodyTemperatureDetails,
         arguments: BodyTemperatureRecord.nowNormalTemperature());
 
@@ -176,7 +176,7 @@ class _BodyTemperatureListPageState extends State<BodyTemperatureListPage> {
     }
   }
 
-  _deleteMeassurement(BuildContext context, int index) {
+  _deleteMessurement(BuildContext context, int index) {
     deleteItem(index);
   }
 
